@@ -1,0 +1,2 @@
+clase Jugador{}
+module.exports = Jugador;

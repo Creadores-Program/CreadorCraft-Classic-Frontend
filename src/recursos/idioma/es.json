@@ -1,0 +1,8 @@
+{
+    "%cargando": "Cargando...",
+    "%seleccionar_idioma": "Seleccionar Idioma\nSelecciona tu idioma:",
+    "%inicio_sesion": "Iniciar Sesión",
+    "%contrasena": "Contraseña",
+    "%error_contrasena_corta": "La contraseña debe tener al menos 8 caracteres.",
+    "%error_contrasena_larga": "La contraseña no puede tener más de 32 caracteres."
+}

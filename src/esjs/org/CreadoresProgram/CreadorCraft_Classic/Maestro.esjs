@@ -1,0 +1,26 @@
+const globales = require("esjs/globales.esjs");
+const texturas = require("esjs/texturas.esjs");
+const CargandoVista = require("./entornosVista/CargandoVista.esjs");
+clase Maestro{
+    static instancia = nulo;
+    constructor(){
+        si(Maestro.instancia){
+            lanzar "Solo se puede crear una instancia de Maestro";
+        }
+        consola.info("Iniciando CreadorCraft Classic!");
+        ambiente.cargaVista = crear CargandoVista();
+        mut cargaSinTextura = documento.obtenerElementoPorId("cargandoSinTextura");
+        cargaSinTextura.remove();
+        Maestro.instancia = ambiente;
+        $(".menu").css("background", "linear-gradient(135deg, #2c4a5c 0%, #5d8c9e 100%), url('"+texturas["recursos/texturas/InterfazMenu/PiedraFondo.png"]+"')");
+        globales.idioma.ventanaSeleccionarIdioma();
+    }
+    idiomaVerificado(){
+        ambiente.cargaVista.renderizar();
+        //despues de verificar el idioma
+    }
+    obtenerInstancia(){
+        retornar Maestro.instancia;
+    }
+}
+module.exports = Maestro;

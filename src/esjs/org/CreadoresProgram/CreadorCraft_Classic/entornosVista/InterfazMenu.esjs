@@ -1,0 +1,107 @@
+const VistaRender = require("./base/VistaRender.esjs");
+clase InterfazMenu extiende VistaRender{
+    #yaRenderisoDatos = falso;
+    constructor(datos){//array de jsons
+        super();
+        ambiente.elementoHtml.className += " menu";
+        ambiente.elementoHtml.style.alignItems = 'center';
+        ambiente.elementoHtml.style.overflow = 'auto';
+        ambiente.datos = datos;
+    }
+    #renderizarDatos(){
+        para(mut datoClave = 0; datoClave < ambiente.datos.longitud; datoClave++){
+            mut dato = ambiente.datos[datoClave];
+            elegir(dato.tipo){
+                caso "boton":
+                    ambiente.#renderizarBoton(dato);
+                    romper;
+                caso "texto":
+                    ambiente.#renderizarTexto(dato);
+                    romper;
+                caso "imagen":
+                    ambiente.#renderizarImagen(dato);
+                    romper;
+                default:
+                    ambiente.#renderizarCrudo(dato);
+            }
+        }
+        ambiente.#yaRenderisoDatos = verdadero;
+    }
+    renderizar(){
+        si(ambiente.#yaRenderisoDatos){
+            super.renderizar();
+            retornar;
+        }
+        ambiente.#renderizarDatos();
+        super.renderizar();
+    }
+    #renderizarBoton(datos){
+        mut boton = documento.crearElemento("button");
+        boton.className = "botonMenu";
+        boton.style.alignItems = 'center';
+        si(datos.estilo){
+            para(mut claveEstilo en datos.estilo){
+                boton.style[claveEstilo] = datos.estilo[claveEstilo];
+            }
+        }
+        si(datos.imagen){
+            mut imagen = documento.crearElemento("img");
+            imagen.src = datos.imagen;
+            imagen.alt = datos.imagen;
+            imagen.style.width = "60px";
+            imagen.style.height = "60px";
+            imagen.style.marginRight = '5px';
+            boton.appendChild(imagen);
+        }
+        si(datos.texto){
+            mut texto = documento.crearNodoTexto(datos.texto);
+            boton.appendChild(texto);
+        }
+        si(datos.eventoClick){
+            boton.onclick = datos.eventoClick;
+        }
+        ambiente.elementoHtml.appendChild(boton);
+        ambiente.elementoHtml.appendChild(documento.crearElemento("br"));
+    }
+    #renderizarTexto(datos){
+        mut contenedor = documento.crearElemento("div");
+        mut texto = documento.crearNodoTexto(datos.texto);
+        contenedor.appendChild(texto);
+        si(datos.estilo){
+            para(mut claveEstilo en datos.estilo){
+                contenedor.style[claveEstilo] = datos.estilo[claveEstilo];
+            }
+        }
+        ambiente.elementoHtml.appendChild(contenedor);
+        ambiente.elementoHtml.appendChild(documento.crearElemento("br"));
+    }
+    #renderizarImagen(datos){
+        mut imagen = documento.crearElemento("img");
+        imagen.src = datos.imagen;
+        si(datos.estilo){
+            para(mut claveEstilo en datos.estilo){
+                imagen.style[claveEstilo] = datos.estilo[claveEstilo];
+            }
+        }
+        si(datos.texto){
+            imagen.alt = datos.texto;
+        }
+        ambiente.elementoHtml.appendChild(imagen);
+        ambiente.elementoHtml.appendChild(documento.crearElemento("br"));
+    }
+    #renderizarCrudo(datos){
+        mut contenedor = documento.crearElemento("div");
+        contenedor.innerHTML = datos.texto;
+        si(datos.estilo){
+            para(mut claveEstilo en datos.estilo){
+                contenedor.style[claveEstilo] = datos.estilo[claveEstilo];
+            }
+        }
+        ambiente.elementoHtml.appendChild(contenedor);
+        ambiente.elementoHtml.appendChild(documento.crearElemento("br"));
+    }
+    obtenerClase(){
+        retornar InterfazMenu;
+    }
+}
+module.exports = InterfazMenu;

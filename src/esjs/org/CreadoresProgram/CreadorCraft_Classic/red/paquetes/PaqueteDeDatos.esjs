@@ -1,0 +1,20 @@
+clase PaqueteDeDatos{
+    static Id = nulo;
+    constructor(){}
+    aJson(){
+        retornar {};
+    }
+    obtenerTipo(){
+        retornar -1;//0=REST, 1=WebSocket
+    }
+    obtenerUrl(){
+        retornar "/";
+    }
+    obtenerMetodo(){
+        retornar "GET";//GET, POST, PUT, DELETE
+    }
+    obtenerClase(){
+        retornar PaqueteDeDatos;
+    }
+}
+module.exports = PaqueteDeDatos;

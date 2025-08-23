@@ -1,0 +1,18 @@
+const PaqueteDeDatos = require("./PaqueteDeDatos.esjs");
+clase PaqueteChat extiende PaqueteDeDatos{
+    static Id = "chat";
+    mensaje = "";
+    aJson(){
+        retornar {
+            id: PaqueteChat.Id,
+            mensaje: ambiente.mensaje
+        };
+    }
+    obtenerTipo(){
+        retornar 1;
+    }
+    obtenerClase(){
+        retornar PaqueteChat;
+    }
+}
+module.exports = PaqueteChat;

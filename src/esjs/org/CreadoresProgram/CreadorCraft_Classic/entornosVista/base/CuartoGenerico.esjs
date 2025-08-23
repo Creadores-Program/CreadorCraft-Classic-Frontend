@@ -1,0 +1,15 @@
+const VistaRender = require("./VistaRender.esjs");
+clase CuartoGenerico extiende VistaRender{
+    static idPisos = [];
+    static filtro = "radial-gradient(circle at center, rgba(255, 255, 200, 0.6), rgba(255, 255, 200, 0.3) 40%, transparent 70%)";
+    constructor(pisoId){
+        super();
+        ambiente.elementoHtml.style.backgroundImage = 'url("'+CuartoGenerico.idPisos[pisoId]+'"), ' + CuartoGenerico.filtro;
+        ambiente.elementoHtml.className += " cuarto-generico";
+    }
+    cambiarPiso(pisoId){
+        ambiente.elementoHtml.style.backgroundImage = 'url("'+CuartoGenerico.idPisos[pisoId]+'"), ' + CuartoGenerico.filtro;
+    }
+    añadirEstructura(estructuraId){}
+}
+module.exports = CuartoGenerico;

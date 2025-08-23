@@ -1,0 +1,22 @@
+module.exports = (asincrono funcion(module) {
+    mut texturas = {};
+    para(mut relaPath en GameProps.getFileGame().files){
+        si(relaPath.terminaCon("/")){
+            continuar;
+        }
+        mut relaPathmini = relaPath.aMinusculas();
+        si(!relaPathmini.comienzaCon("recursos/texturas")){
+            continuar;
+        }
+        mut ultimoIndex = relaPathmini.ultimoIndiceDe(".");
+        mut mimetype;
+        si(ultimoIndex != -1){
+            mimetype = "image/"+relaPathmini.recortar(ultimoIndex + 1);
+        }sino{
+            mimetype = "image/webp";
+        }
+        texturas[relaPath] = esperar LoadUrlCC.fileToUrl(relaPath, mimetype);
+    }
+    module.exports = texturas;
+    retornar texturas;
+})(module);

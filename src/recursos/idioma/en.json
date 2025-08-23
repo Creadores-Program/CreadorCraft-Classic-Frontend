@@ -1,0 +1,8 @@
+{
+    "%cargando": "Loading...",
+    "%seleccionar_idioma": "Select Language\nSelect your language:",
+    "%inicio_sesion": "Log In",
+    "%contrasena": "Password",
+    "%error_contrasena_corta": "The password must be at least 8 characters long.",
+    "%error_contrasena_larga": "The password must not exceed 32 characters."
+}

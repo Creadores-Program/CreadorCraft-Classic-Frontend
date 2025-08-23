@@ -1,0 +1,26 @@
+const InterfazMenu = require("./InterfazMenu.esjs");
+const globales = require("esjs/globales.esjs");
+clase InicioSesionVista extiende InterfazMenu {
+    constructor(){
+        mut datos = [
+            { tipo: "crudo", texto: "<h1>"+globales.idioma.traducir("%inicio_sesion")+"</h1>" },
+            { tipo: "crudo", texto: "<label for='contrasenaEntra'>"+globales.idioma.traducir("%contrasena")+"</label>\n<input type='password' id='contrasenaEntra' name='contrasena'/>" },
+            { tipo: "boton", texto: globales.idioma.traducir("%inicio_sesion"), eventoClick: funcion(){
+                mut contrasena = documento.obtenerElementoPorId("contrasenaEntra").value;
+                si(contrasena.longitud < 8){
+                    ventanta.alerta(globales.idioma.traducir("%error_contrasena_corta"));
+                    retornar;
+                }
+                si(contrasena.longitud > 32){
+                    ventanta.alerta(globales.idioma.traducir("%error_contrasena_larga"));
+                    retornar;
+                }
+                //Red.enviarPaquete(paquete);
+                //iniciar sesión con la contraseña proporcionada
+            }
+            }
+        ];
+        super(datos);
+    }
+}
+module.exports = InicioSesionVista;

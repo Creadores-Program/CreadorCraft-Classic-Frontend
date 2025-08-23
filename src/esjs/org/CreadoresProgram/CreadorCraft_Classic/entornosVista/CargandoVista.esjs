@@ -1,0 +1,23 @@
+const VistaRender = require("./base/VistaRender.esjs");
+const texturas = require("esjs/texturas.esjs");
+const globales = require("esjs/globales.esjs");
+clase CargandoVista extiende VistaRender{
+    constructor(){
+        super();
+        ambiente.elementoHtml.style.backgroundColor = "#0000FF";
+        ambiente.elementoHtml.style.background = "url('"+texturas["recursos/texturas/Cargando/Logo1.jpg"]+"') 50% 50% no-repeat #0000FF";
+        ambiente.elementoHtml.style.backgroundSize = "contain";
+        ambiente.elementoHtml.innerHTML = '<div style="position: fixed; left: 50%; top: 80%; transform: translate(-50%, -50%); font-size: 11vw; font-weight: bold; color: #99cc66; animation: customFlipSello; animation-duration: 2s;">Presenta</div>';
+    }
+    renderizar(){
+        super.renderizar();
+        establecerTemporizador(ambiente.cambiarACarga.bind(ambiente), 3000);
+    }
+    cambiarACarga(){
+        ambiente.elementoHtml.style.backgroundColor = "#000000";
+        ambiente.elementoHtml.style.background = "url('"+texturas["recursos/texturas/Cargando/Logo2.png"]+"') 50% 50% no-repeat #000000";
+        ambiente.elementoHtml.style.backgroundSize = "contain";
+        ambiente.elementoHtml.style.color = "#FFFFFF";
+        ambiente.elementoHtml.innerHTML = '<div style="position: fixed; left: 50%; top: 80%; transform: translate(-50%, -50%); font-family: "MedievalSharp", cursive; font-size: 11vw; font-weight: bold; color: white; animation: customLightSpeedInLeft; animation-duration: 2s;">'+globales.idioma.traducir("%cargando")+'</div>\n<progress style="position: fixed; left: 50%; top: 90%; transform: translate(-50%, -50%); width: 80%;"></progress>';
+    }
+}

@@ -1,0 +1,11 @@
+const Idioma = require("esjs/org/CreadoresProgram/CreadorCraft_Classic/utiles/Idioma.esjs");
+module.exports = {
+    id: GameProps.getPlayerId(),
+    nombre: GameProps.getPlayerName(),
+    cuentaDiscord: GameProps.isDiscordPlayer(),
+    jugador: nulo,
+    nivel: 0,
+    idioma: crear Idioma(),
+    urlRest: "proximamente",
+    urlWebsocket: "proximamente"
+};

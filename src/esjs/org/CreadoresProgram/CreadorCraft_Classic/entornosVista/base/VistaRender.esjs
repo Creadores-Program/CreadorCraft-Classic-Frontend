@@ -1,0 +1,25 @@
+clase VistaRender{
+    constructor(){
+        ambiente.elementoHtml = documento.crearElemento("div");
+        ambiente.elementoHtml.className = "vistaInterface";
+    }
+    renderizar(){
+        documento.cuerpo.appendChild(ambiente.elementoHtml);
+        ambiente.mostrar();
+    }
+    borrar(){
+        si(ambiente.elementoHtml){
+            ambiente.elementoHtml.remove();
+        }
+    }
+    ocultar(){
+        $(ambiente.elementoHtml).hide();
+    }
+    mostrar(){
+        $(ambiente.elementoHtml).fadeIn();
+    }
+    obtenerClase(){
+        retornar VistaRender;
+    }
+}
+module.exports = VistaRender;

@@ -1,0 +1,84 @@
+const globales = require("esjs/globales.esjs");
+const ProcesadorDePaquetes = require("./ProcesadorDePaquetes.esjs");
+clase Red{
+    constructor(){
+        ambiente.ws = crear WebSocket(globales.urlWebsocket);
+        ambiente.procesadorDePaquetes = crear ProcesadorDePaquetes();
+        ambiente.ws.onmessage = funcion(evento){
+            mut paquete = JSON.analizar(evento.data);
+            ambiente.procesadorDePaquetes.procesarPaquete(paquete);
+        }.bind(ambiente);
+    }//ambiente es this
+    enviarPaquete(paquete){
+        si(paquete.obtenerTipo() == 0){
+            ambiente.#enviarPaqueteRest(paquete);
+        }sino{
+            ambiente.#enviarPaqueteWS(paquete);
+        }
+    }
+    #enviarPaqueteRest(paquete){
+        elegir(paquete.obtenerMetodo()){
+            caso "GET":
+                consultar(globales.urlRest+paquete.obtenerUrl()).luego(funcion(res){
+                    retornar res.json();
+                }).luego(funcion(json){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, json);
+                }).capturar(funcion(error){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, nulo, error);
+                });
+                romper;
+            caso "POST":
+                consultar(globales.urlRest+paquete.obtenerUrl(), {
+                    method: 'POST',
+                    body: JSON.aTexto(paquete.aJson()),
+                    headers: {'Content-Type': 'application/json'}
+                }).luego(funcion(res){
+                    retornar res.json();
+                }).luego(funcion(json){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, json);
+                }).capturar(funcion(error){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, nulo, error);
+                });
+            caso "PUT":
+                consultar(globales.urlRest+paquete.obtenerUrl(), {
+                    method: 'PUT',
+                    body: JSON.aTexto(paquete.aJson()),
+                    headers: {'Content-Type': 'application/json'}
+                }).luego(funcion(res){
+                    retornar res.json();
+                }).luego(funcion(json){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, json);
+                }).capturar(funcion(error){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, nulo, error);
+                });
+                romper;
+            caso "DELETE":
+                consultar(globales.urlRest+paquete.obtenerUrl(), {
+                    method: 'DELETE',
+                    body: JSON.aTexto(paquete.aJson()),
+                    headers: {'Content-Type': 'application/json'}
+                }).luego(funcion(res){
+                    retornar res.json();
+                }).luego(funcion(json){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, json);
+                }).capturar(funcion(error){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, nulo, error);
+                });
+                romper;
+        }
+    }
+    #enviarPaqueteWS(paquete){
+        ambiente.ws.send(JSON.aTexto(paquete.aJson()));
+    }
+    asincrono parar(){
+        si(ambiente.ws){
+            ambiente.ws.close();
+        }
+        esperar consultar(globales.urlRest+"logout", {
+            method: 'POST',
+            body: JSON.aTexto({token: ambiente.token}),
+            headers: { 'Content-Type': 'application/json'}
+        });
+    }
+}
+module.exports = Red;

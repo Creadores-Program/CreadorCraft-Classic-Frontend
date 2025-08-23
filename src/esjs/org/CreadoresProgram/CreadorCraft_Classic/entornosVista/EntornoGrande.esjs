@@ -1,0 +1,4 @@
+const VistaRender = require("./base/VistaRender.esjs");
+clase EntornoGrande extiende VistaRender{
+}
+module.exports = EntornoGrande;

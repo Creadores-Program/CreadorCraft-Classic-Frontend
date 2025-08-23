@@ -1,0 +1,123 @@
+const esp = require("recursos/idioma/es.json");
+const eng = require("recursos/idioma/en.json");
+const pt = require("recursos/idioma/pt.json");
+const ru = require("recursos/idioma/ru.json");
+const zh = require("recursos/idioma/zh.json");
+const InterfazMenu = require("../entornosVista/InterfazMenu.esjs");
+const Maestro = require("../Maestro.esjs");
+clase Idioma{
+    constructor(){
+        si(GameProps.getStorage().get("idioma") == nulo){
+            GameProps.getStorage().set("idioma", "es");
+            ambiente.idioma = "es";
+            ambiente.traductor = esp;
+            ambiente.noTieneIdioma = verdadero;
+        }sino{
+            ambiente.idioma = GameProps.getStorage().get("idioma");
+            elegir(ambiente.idioma){
+                caso "es":
+                    ambiente.traductor = esp;
+                    romper;
+                caso "en":
+                    ambiente.traductor = eng;
+                    romper;
+                caso "pt":
+                    ambiente.traductor = pt;
+                    romper;
+                caso "ru":
+                    ambiente.traductor = ru;
+                    romper;
+                caso "zh":
+                    ambiente.traductor = zh;
+                    romper;
+                porDefecto:
+                    ambiente.traductor = esp;
+                    ambiente.noTieneIdioma = verdadero;
+                    romper;
+            }
+        }
+    }
+    traducir(clave){
+        si(ambiente.traductor[clave] != nulo){
+            retornar ambiente.traductor[clave];
+        }sino{
+            consola.error("No se encontró la clave de traducción: "+clave);
+            retornar esp[clave] != nulo ? esp[clave] : clave;
+        }
+    }
+    ventanaSeleccionarIdioma(){
+        si(!ambiente.noTieneIdioma){
+            Maestro.obtenerInstancia().idiomaVerificado();
+            retornar;
+        }
+        mut datos = [];
+        mut menu;
+        datos.agregar({
+            tipo: "texto",
+            texto: ambiente.traducir("%seleccionar_idioma")
+        });
+        datos.agregar({
+            tipo: "boton",
+            texto: "Español",
+            eventoClick: funcion(){
+                GameProps.getStorage().set("idioma", "es");
+                ambiente.idioma = "es";
+                ambiente.traductor = esp;
+                ambiente.noTieneIdioma = falso;
+                menu.borrar();
+                Maestro.obtenerInstancia().idiomaVerificado();
+            }
+        });
+        datos.agregar({
+            tipo: "boton",
+            texto: "English",
+            eventoClick: funcion(){
+                GameProps.getStorage().set("idioma", "en");
+                ambiente.idioma = "en";
+                ambiente.traductor = eng;
+                ambiente.noTieneIdioma = falso;
+                menu.borrar();
+                Maestro.obtenerInstancia().idiomaVerificado();
+            }
+        });
+        datos.agregar({
+            tipo: "boton",
+            texto: "Português",
+            eventoClick: funcion(){
+                GameProps.getStorage().set("idioma", "pt");
+                ambiente.idioma = "pt";
+                ambiente.traductor = pt;
+                ambiente.noTieneIdioma = falso;
+                menu.borrar();
+                Maestro.obtenerInstancia().idiomaVerificado();
+            }
+        });
+        datos.agregar({
+            tipo: "boton",
+            texto: "Русский",
+            eventoClick: funcion(){
+                GameProps.getStorage().set("idioma", "ru");
+                ambiente.idioma = "ru";
+                ambiente.traductor = ru;
+                ambiente.noTieneIdioma = falso;
+                menu.borrar();
+                Maestro.obtenerInstancia().idiomaVerificado();
+            }
+        });
+        datos.agregar({
+            tipo: "boton",
+            texto: "中文",
+            eventoClick: funcion(){
+                GameProps.getStorage().set("idioma", "zh");
+                ambiente.idioma = "zh";
+                ambiente.traductor = zh;
+                ambiente.noTieneIdioma = falso;
+                menu.borrar();
+                Maestro.obtenerInstancia().idiomaVerificado();
+            }
+        });
+        menu = crear InterfazMenu(datos);
+        menu.renderizar();
+    }
+}
+module.exports = Idioma;

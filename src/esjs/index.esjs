@@ -1,0 +1,13 @@
+mut indexInit = asincrono funcion() {
+    esperar require.CreadorCraftInit();
+    require.EsJSInit();
+    mut texturas = require("esjs/texturas.esjs");
+    intentar{
+        esperar texturas;
+    }capturar(error){
+        //ignorar
+    }
+    mut Maestro = require("esjs/CreadoresProgram/CreadorCraft_Classic/Maestro.esjs");
+    crear Maestro();
+}
+indexInit();

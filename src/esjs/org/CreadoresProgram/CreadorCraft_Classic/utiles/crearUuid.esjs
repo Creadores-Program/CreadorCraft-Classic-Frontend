@@ -1,0 +1,10 @@
+module.exports = funcion() {
+    si (ventana.cripto && tipoDe ventana.cripto.randomUUID == 'function') {
+        retornar ventana.cripto.randomUUID();
+    }
+    retornar 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.reemplazar(/[xy]/g, funcion(c){
+        const r = Mate.aleatorio() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        retornar v.aCadena(16);
+    });
+};
