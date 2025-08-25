@@ -7,5 +7,6 @@ module.exports = {
     nivel: 0,
     idioma: crear Idioma(),
     urlRest: "proximamente",
-    urlWebsocket: "proximamente"
+    urlWebsocket: "proximamente",
+    jugadores: []
 };

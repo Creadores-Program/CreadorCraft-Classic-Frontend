@@ -7,13 +7,16 @@ const InterfazMenu = require("../entornosVista/InterfazMenu.esjs");
 const Maestro = require("../Maestro.esjs");
 clase Idioma{
     constructor(){
-        si(GameProps.getStorage().get("idioma") == nulo){
-            GameProps.getStorage().set("idioma", "es");
+        ambiente.promesaIniciacion = ambiente.#iniciar();
+    }
+    asincrono #iniciar(){
+        si((esperar GameProps.getStorage().get("idioma")) == nulo){
+            esperar GameProps.getStorage().set("idioma", "es");
             ambiente.idioma = "es";
             ambiente.traductor = esp;
             ambiente.noTieneIdioma = verdadero;
         }sino{
-            ambiente.idioma = GameProps.getStorage().get("idioma");
+            ambiente.idioma = esperar GameProps.getStorage().get("idioma");
             elegir(ambiente.idioma){
                 caso "es":
                     ambiente.traductor = esp;
@@ -45,7 +48,8 @@ clase Idioma{
             retornar esp[clave] != nulo ? esp[clave] : clave;
         }
     }
-    ventanaSeleccionarIdioma(){
+    asincrono ventanaSeleccionarIdioma(){
+        esperar ambiente.promesaIniciacion;
         si(!ambiente.noTieneIdioma){
             Maestro.obtenerInstancia().idiomaVerificado();
             retornar;

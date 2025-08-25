@@ -1,0 +1,4 @@
+const PaqueteDeDatos = require("./PaqueteDeDatos.esjs");
+clase PaqueteMovimiento extiende PaqueteDeDatos{
+}
+module.exports = PaqueteMovimiento;

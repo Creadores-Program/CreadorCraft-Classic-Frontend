@@ -1,11 +1,14 @@
 const PaqueteDeDatos = require("./PaqueteDeDatos.esjs");
+const globales = require("esjs/globales.esjs");
 clase PaqueteChat extiende PaqueteDeDatos{
     static Id = "chat";
     mensaje = "";
     aJson(){
         retornar {
             id: PaqueteChat.Id,
-            mensaje: ambiente.mensaje
+            mensaje: ambiente.mensaje,
+            jugadorId: globales.id,
+            nombre: globales.nombre
         };
     }
     obtenerTipo(){

@@ -1,0 +1,7 @@
+clase ProcesadorLogin{
+    puedeProcesar(paquete){
+        retornar paquete.obtenerClase().Id == "login";
+    }
+    procesar(paquete, jsonRes){}
+}
+module.exports = ProcesadorLogin;

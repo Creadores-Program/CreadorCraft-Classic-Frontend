@@ -8,6 +8,7 @@ clase Red{
             mut paquete = JSON.analizar(evento.data);
             ambiente.procesadorDePaquetes.procesarPaquete(paquete);
         }.bind(ambiente);
+        axios.defaults.withCredentials = verdadero;
     }//ambiente es this
     enviarPaquete(paquete){
         si(paquete.obtenerTipo() == 0){
@@ -19,51 +20,31 @@ clase Red{
     #enviarPaqueteRest(paquete){
         elegir(paquete.obtenerMetodo()){
             caso "GET":
-                consultar(globales.urlRest+paquete.obtenerUrl()).luego(funcion(res){
-                    retornar res.json();
-                }).luego(funcion(json){
-                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, json);
-                }).capturar(funcion(error){
+                axios.get(globales.urlRest+paquete.obtenerUrl()).luego(funcion(res){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, res.data);
+                }.bind(ambiente)).capturar(funcion(error){
                     ambiente.procesadorDePaquetes.procesarRespuesta(paquete, nulo, error);
-                });
+                }.bind(ambiente));
                 romper;
             caso "POST":
-                consultar(globales.urlRest+paquete.obtenerUrl(), {
-                    method: 'POST',
-                    body: JSON.aTexto(paquete.aJson()),
-                    headers: {'Content-Type': 'application/json'}
-                }).luego(funcion(res){
-                    retornar res.json();
-                }).luego(funcion(json){
-                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, json);
-                }).capturar(funcion(error){
+                axios.post(globales.urlRest+paquete.obtenerUrl(), paquete.aJson()).luego(funcion(res){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, res.data);
+                }.bind(ambiente)).capturar(funcion(error){
                     ambiente.procesadorDePaquetes.procesarRespuesta(paquete, nulo, error);
-                });
+                }.bind(ambiente));
             caso "PUT":
-                consultar(globales.urlRest+paquete.obtenerUrl(), {
-                    method: 'PUT',
-                    body: JSON.aTexto(paquete.aJson()),
-                    headers: {'Content-Type': 'application/json'}
-                }).luego(funcion(res){
-                    retornar res.json();
-                }).luego(funcion(json){
-                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, json);
-                }).capturar(funcion(error){
+                axios.put(globales.urlRest+paquete.obtenerUrl(), paquete.aJson()).luego(funcion(res){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, res.data);
+                }.bind(ambiente)).capturar(funcion(error){
                     ambiente.procesadorDePaquetes.procesarRespuesta(paquete, nulo, error);
-                });
+                }.bind(ambiente));
                 romper;
             caso "DELETE":
-                consultar(globales.urlRest+paquete.obtenerUrl(), {
-                    method: 'DELETE',
-                    body: JSON.aTexto(paquete.aJson()),
-                    headers: {'Content-Type': 'application/json'}
-                }).luego(funcion(res){
-                    retornar res.json();
-                }).luego(funcion(json){
-                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, json);
-                }).capturar(funcion(error){
+                axios.delete(globales.urlRest+paquete.obtenerUrl(), paquete.aJson()).luego(funcion(res){
+                    ambiente.procesadorDePaquetes.procesarRespuesta(paquete, res.data);
+                }.bind(ambiente)).capturar(funcion(error){
                     ambiente.procesadorDePaquetes.procesarRespuesta(paquete, nulo, error);
-                });
+                }.bind(ambiente));
                 romper;
         }
     }
@@ -74,11 +55,7 @@ clase Red{
         si(ambiente.ws){
             ambiente.ws.close();
         }
-        esperar consultar(globales.urlRest+"logout", {
-            method: 'POST',
-            body: JSON.aTexto({token: ambiente.token}),
-            headers: { 'Content-Type': 'application/json'}
-        });
+        esperar axios.post(globales.urlRest+"logout", {});
     }
 }
 module.exports = Red;

@@ -1,2 +1,31 @@
-clase ProcesadorDePaquetes{}
+const globales = require("esjs/globales.esjs");
+const ProcesadorLogin = require("./procesadoresRest/ProcesadorLogin.esjs");
+clase ProcesadorDePaquetes{
+    constructor(){
+        ambiente.procesadoresRest = [crear ProcesadorLogin()];
+        ambiente.procesadoresWS = [];
+    }
+    procesarRespuesta(paquete, jsonRes, error){
+        si(error){
+            consola.error("Error al procesar el paquete: " + error);
+            retornar;
+        }
+        para (const procesador de ambiente.procesadoresRest) {
+            si(procesador.puedeProcesar(paquete)){
+                procesador.procesar(paquete, jsonRes);
+                retornar;
+            }
+        }
+        consola.advertencia("No se encontró un procesador para el paquete: " + paquete.obtenerClase().Id);
+    }
+    procesarPaquete(paquete){
+        para (const procesador de ambiente.procesadoresWS) {
+            si(procesador.puedeProcesar(paquete)){
+                procesador.procesar(paquete);
+                retornar;
+            }
+        }
+        consola.advertencia("No se encontró un procesador para el paquete: " + paquete.obtenerClase().Id);
+    }
+}
 module.exports = ProcesadorDePaquetes;

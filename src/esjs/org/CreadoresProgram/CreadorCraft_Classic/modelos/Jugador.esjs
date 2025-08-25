@@ -1,2 +1,58 @@
-clase Jugador{}
+const texturas = require("esjs/texturas.esjs");
+clase Jugador{
+    x = 0;
+    y = 0;
+    orientacion = 0; // 0: arriba, 1: abajo, 2: izquierda, 3: derecha
+    static skinsPorDefecto = ["Max"];
+    //static skinsTextura = [];//ruta de las texturas de los skins (Array de Urls)
+    skin = Jugador.skinsPorDefecto[0];
+    nombre;
+    id;
+    elementoHtml;
+    visible = falso;
+    constructor(nombre, id, x, y, orientacion, skinId/*, skinTextura*/, elementoHtml){
+        ambiente.nombre = nombre;
+        ambiente.id = id;
+        ambiente.x = x;
+        ambiente.y = y;
+        ambiente.orientacion = orientacion || 0;
+        ambiente.skin = Jugador.skinsPorDefecto[skinId] || Jugador.skinsPorDefecto[0];
+        //ambiente.skinTextura = skinTextura || Jugador.skinsTextura[0];
+        ambiente.elementoHtml = elementoHtml;
+    }
+    establecerX(x){
+        ambiente.x = x;
+    }
+    establecerY(y){
+        ambiente.y = y;
+    }
+    establecerOrientacion(orientacion){
+        ambiente.orientacion = orientacion;
+    }
+    establecerSkin(id){
+        ambiente.skin = Jugador.skinsPorDefecto[id] || Jugador.skinsPorDefecto[0];
+    }
+    establecerVisibilidad(visible){
+        ambiente.visible = visible;
+    }
+    obtenerX(){
+        retornar ambiente.x;
+    }
+    obtenerY(){
+        retornar ambiente.y;
+    }
+    obtenerOrientacion(){
+        retornar ambiente.orientacion;
+    }
+    obtenerSkin(){
+        retornar ambiente.skin;
+    }
+    actualizar(){
+        si(!ambiente.visible){
+            $(ambiente.elementoHtml).hide();
+            retornar;
+        }
+        //actualizar la posicion del jugador en el juego
+    }
+}
 module.exports = Jugador;
